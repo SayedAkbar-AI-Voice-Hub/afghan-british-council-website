@@ -165,7 +165,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .logo img {
-    height: 100px;
+    height: 130px;
     width: auto;
 }
 .navbar.dark-theme .logo img {
@@ -516,7 +516,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .footer-logo {
-    height: 50px;
+    height: 90px;
     margin-bottom: 1.5rem;
     filter: brightness(0) invert(1);
 }
