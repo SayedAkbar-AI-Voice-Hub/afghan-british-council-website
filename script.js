@@ -218,4 +218,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    // 7. Connect Form Submission Logic
+    const contactForm = document.getElementById('contact-form-element');
+    const successMsg = document.getElementById('form-success-message');
+    
+    if (contactForm && successMsg) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Stop page reload
+            
+            // Hide form and show success message
+            contactForm.style.display = 'none';
+            successMsg.style.display = 'block';
+            
+            // Animate it nicely using GSAP
+            gsap.fromTo(successMsg, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
+        });
+    }
 });
