@@ -1,5 +1,8 @@
+// GSAP and ScrollTrigger initialization
+gsap.registerPlugin(ScrollTrigger);
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Navbar Scroll Effect
+    // 1. Navbar Scroll & Dark Theme Toggle
     const navbar = document.querySelector('.navbar');
     
     window.addEventListener('scroll', () => {
@@ -10,91 +13,209 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Mobile Menu Toggle
+    // 2. Mobile Menu Toggle
     const hamburger = document.querySelector('.hamburger');
     const navLinks = document.querySelector('.nav-links');
-    const icon = hamburger.querySelector('i');
+    const icon = hamburger?.querySelector('i');
 
-    hamburger.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-        if (navLinks.classList.contains('active')) {
-            icon.classList.remove('fa-bars');
-            icon.classList.add('fa-times');
-        } else {
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
+    if (hamburger && navLinks) {
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            if (icon) {
+                if (navLinks.classList.contains('active')) {
+                    icon.classList.remove('fa-bars');
+                    icon.classList.add('fa-times');
+                } else {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
+            }
+        });
+    }
+
+    // Mobile dropdown toggle
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach(dropdown => {
+        dropdown.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768) {
+                e.stopPropagation();
+                dropdown.classList.toggle('active');
+            }
+        });
+    });
+
+    // 3. Magnetic Buttons (GSAP)
+    const magneticBtns = document.querySelectorAll('.magnetic-btn');
+    
+    magneticBtns.forEach(btn => {
+        btn.addEventListener('mousemove', (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            
+            gsap.to(btn, {
+                x: x * 0.4,
+                y: y * 0.4,
+                duration: 0.4,
+                ease: "power2.out"
+            });
+        });
+
+        btn.addEventListener('mouseleave', () => {
+            gsap.to(btn, {
+                x: 0,
+                y: 0,
+                duration: 0.7,
+                ease: "elastic.out(1, 0.3)"
+            });
+        });
+    });
+
+    // 4. GSAP Scroll Animations
+    // Fade Up
+    gsap.utils.toArray('.gsap-fade-up').forEach(elem => {
+        gsap.to(elem, {
+            scrollTrigger: {
+                trigger: elem,
+                start: "top 85%",
+            },
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power3.out"
+        });
+    });
+
+    // Fade In
+    gsap.utils.toArray('.gsap-fade-in').forEach(elem => {
+        gsap.to(elem, {
+            scrollTrigger: {
+                trigger: elem,
+                start: "top 85%",
+            },
+            opacity: 1,
+            duration: 1.5,
+            ease: "power2.out"
+        });
+    });
+
+    // Stagger Item (for grids)
+    const staggerContainers = document.querySelectorAll('.grid-2, .grid-3, .values-grid, .gallery-grid, .projects-grid');
+    staggerContainers.forEach(container => {
+        const items = container.querySelectorAll('.gsap-stagger-item');
+        if (items.length > 0) {
+            gsap.to(items, {
+                scrollTrigger: {
+                    trigger: container,
+                    start: "top 85%",
+                },
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: "power3.out"
+            });
         }
     });
 
-    // Close mobile menu when a link is clicked
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
-            icon.classList.remove('fa-times');
-            icon.classList.add('fa-bars');
+    // Scale Up Images
+    gsap.utils.toArray('.gsap-scale-up').forEach(elem => {
+        gsap.to(elem, {
+            scrollTrigger: {
+                trigger: elem,
+                start: "top 85%",
+            },
+            scale: 1,
+            opacity: 1,
+            duration: 1.2,
+            ease: "power3.out"
         });
     });
 
-    // Scroll Animation (Intersection Observer)
-    const revealElements = document.querySelectorAll('.reveal-up, .reveal-left, .reveal-right');
-
-    const revealSettings = {
-        threshold: 0.15,
-        rootMargin: "0px 0px -50px 0px"
-    };
-
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target);
-            }
+    // Hero Parallax
+    const heroBg = document.querySelector('.page-hero-bg');
+    if (heroBg) {
+        gsap.to(heroBg, {
+            scrollTrigger: {
+                trigger: ".page-hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            },
+            y: "30%",
+            ease: "none"
         });
-    }, revealSettings);
+    }
 
-    revealElements.forEach(el => {
-        revealObserver.observe(el);
-    });
+    // 5. Gallery Filter Logic (for gallery.html)
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const galleryItems = document.querySelectorAll('.gallery-item');
 
-    // Dynamic Image Loading script to pick different hero backgrounds from available files if needed
-    // Assuming 'a.jpg' through 't.jpg' exist, let's just make the hero background rotate slightly
-    // or just rely on CSS for now.
+    if (filterBtns.length > 0) {
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class
+                filterBtns.forEach(b => b.classList.remove('active'));
+                // Add active class to clicked
+                btn.classList.add('active');
 
-    // Lightbox Modal Logic
+                const filterValue = btn.getAttribute('data-filter');
+
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all' || item.classList.contains(filterValue)) {
+                        item.style.display = 'block';
+                        gsap.fromTo(item, { scale: 0.8, opacity: 0 }, { scale: 1, opacity: 1, duration: 0.4 });
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    }
+
+    // 6. Lightbox Modal Logic
     const modal = document.getElementById("lightbox-modal");
     const modalImg = document.getElementById("lightbox-img");
     const captionText = document.getElementById("caption");
     const closeBtn = document.querySelector(".close-modal");
 
-    // Add click event to all gallery images
-    const triggers = document.querySelectorAll('.lightbox-trigger');
-    triggers.forEach(img => {
-        img.addEventListener('click', function() {
-            modal.style.display = "block";
-            // slight delay to allow display flex/block to apply before opacity transition
-            setTimeout(() => {
-                modal.classList.add("show");
-            }, 10);
-            modalImg.src = this.src;
-            captionText.innerHTML = this.alt;
+    if (modal && modalImg) {
+        const triggers = document.querySelectorAll('.lightbox-trigger');
+        triggers.forEach(img => {
+            img.addEventListener('click', function(e) {
+                e.preventDefault();
+                modal.style.display = "block";
+                setTimeout(() => modal.classList.add("show"), 10);
+                
+                // If the trigger wrapper is an anchor, use href, else use img src
+                if (this.tagName === 'A') {
+                    modalImg.src = this.getAttribute('href');
+                    const innerImg = this.querySelector('img');
+                    captionText.innerHTML = innerImg ? innerImg.getAttribute('alt') : '';
+                } else if (this.tagName === 'IMG') {
+                    modalImg.src = this.src;
+                    captionText.innerHTML = this.alt;
+                }
+                
+                document.body.style.overflow = 'hidden'; // prevent background scrolling
+            });
         });
-    });
 
-    // Close Modal Event
-    const closeModal = () => {
-        modal.classList.remove("show");
-        setTimeout(() => {
-            modal.style.display = "none";
-        }, 300); // match transition time
-    };
+        const closeModal = () => {
+            modal.classList.remove("show");
+            setTimeout(() => {
+                modal.style.display = "none";
+                document.body.style.overflow = '';
+            }, 300);
+        };
 
-    closeBtn.addEventListener('click', closeModal);
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
 
-    // Close when clicking outside the image
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeModal();
-        }
-    });
-
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+    }
 });
