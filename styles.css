@@ -165,8 +165,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .logo img {
-    height: 65px;
+    height: 100px;
     width: auto;
+}
+.navbar.dark-theme .logo img {
+    filter: brightness(0) invert(1);
 }
 
 .logo-text {
