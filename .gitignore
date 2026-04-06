@@ -4,3 +4,5 @@
 __pycache__/
 template/
 .vercel
+node_modules
+dist
