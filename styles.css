@@ -169,7 +169,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .logo img {
-    height: 156px;
+    height: 200px;
     width: auto;
     border-radius: 8px;
 }
@@ -545,7 +545,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .footer-logo {
-    height: 216px;
+    height: 250px;
     width: auto;
     margin-bottom: 1.5rem;
     border-radius: 10px;
