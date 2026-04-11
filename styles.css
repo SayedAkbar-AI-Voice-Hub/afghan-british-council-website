@@ -189,17 +189,18 @@ h1, h2, h3, h4, h5, h6 {
 .nav-links {
     display: flex;
     align-items: center;
-    gap: 2.5rem;
+    gap: 1.5rem;
     list-style: none;
 }
 
 .nav-link {
     text-decoration: none;
     color: var(--dark);
-    font-size: 0.95rem;
+    font-size: 0.88rem;
     font-weight: 500;
     position: relative;
     padding: 0.5rem 0;
+    white-space: nowrap;
 }
 
 .dark-theme .nav-link {
@@ -317,6 +318,8 @@ h1, h2, h3, h4, h5, h6 {
 .page-hero-content {
     max-width: 800px;
     color: var(--white);
+    position: relative;
+    z-index: 10;
 }
 
 .page-hero h1 {
@@ -617,6 +620,42 @@ h1, h2, h3, h4, h5, h6 {
     background: rgba(255,255,255,0.1);
 }
 
+/* Carousel styles */
+.hero-carousel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    overflow: hidden;
+}
+.hero-carousel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, rgba(13,27,62,0.92) 0%, rgba(13,27,62,0.45) 60%, rgba(26,43,92,0.2) 100%);
+    z-index: 1;
+}
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+}
+.carousel-slide.active {
+    opacity: 1;
+}
+
 /* Responsive */
 @media (max-width: 992px) {
     .grid-2, .grid-3 {
@@ -627,7 +666,7 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
     .nav-links {
         position: fixed;
         top: 0;
@@ -639,6 +678,7 @@ h1, h2, h3, h4, h5, h6 {
         justify-content: center;
         transition: 0.5s cubic-bezier(0.77, 0, 0.175, 1);
         z-index: 1000;
+        overflow-y: auto;
     }
     .dark-theme .nav-links {
         background: linear-gradient(160deg, var(--dark) 0%, var(--dark-light) 100%);

@@ -38,9 +38,23 @@ document.addEventListener('DOMContentLoaded', () => {
     const dropdowns = document.querySelectorAll('.dropdown');
     dropdowns.forEach(dropdown => {
         dropdown.addEventListener('click', (e) => {
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 1100) {
                 e.stopPropagation();
                 dropdown.classList.toggle('active');
+            }
+        });
+    });
+
+    // Close mobile nav when a dropdown item link is clicked
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', () => {
+            if (navLinks && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                document.body.style.overflow = '';
+                if (icon) {
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
             }
         });
     });
@@ -233,5 +247,16 @@ document.addEventListener('DOMContentLoaded', () => {
             // Animate it nicely using GSAP
             gsap.fromTo(successMsg, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
         });
+    }
+
+    // 8. Hero Carousel Auto-scroll
+    const slides = document.querySelectorAll('.carousel-slide');
+    if (slides.length > 0) {
+        let currentSlide = 0;
+        setInterval(() => {
+            slides[currentSlide].classList.remove('active');
+            currentSlide = (currentSlide + 1) % slides.length;
+            slides[currentSlide].classList.add('active');
+        }, 4000); // Change image every 4 seconds
     }
 });
