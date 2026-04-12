@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | Afghan British Council</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .admin-container { max-width: 900px; margin: 0 auto; padding: 2rem; }
+        .admin-header { background: linear-gradient(135deg, var(--dark), var(--dark-light)); color: white; padding: 1.5rem 2rem; border-radius: var(--radius-md); margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .admin-section { background: white; border-radius: var(--radius-md); padding: 2rem; margin-bottom: 2rem; box-shadow: 0 4px 20px rgba(13,27,62,0.08); border: 1px solid rgba(13,27,62,0.08); }
+        .admin-section h2 { font-family: var(--font-primary); font-size: 1.2rem; font-weight: 600; margin-bottom: 1.5rem; color: var(--dark); display: flex; align-items: center; gap: 0.75rem; }
+        .admin-section h2 i { color: var(--accent); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.4rem; font-weight: 500; font-size: 0.9rem; color: var(--dark); }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 0.75rem 1rem; border: 1px solid rgba(13,27,62,0.15); border-radius: var(--radius-sm); font-family: var(--font-primary); font-size: 0.95rem; color: var(--dark); background: var(--light); transition: border-color 0.3s; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--accent); background: white; }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .btn-admin { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.7rem 1.5rem; border-radius: var(--radius-full); font-weight: 500; font-size: 0.9rem; cursor: pointer; border: none; transition: all 0.3s; }
+        .btn-admin-primary { background: var(--accent); color: var(--dark); }
+        .btn-admin-primary:hover { background: var(--accent-hover); }
+        .btn-admin-danger { background: #ef4444; color: white; }
+        .btn-admin-danger:hover { background: #dc2626; }
+        .event-list { list-style: none; }
+        .event-item { display: flex; justify-content: space-between; align-items: flex-start; padding: 1rem; background: var(--light); border-radius: var(--radius-sm); margin-bottom: 0.75rem; border: 1px solid rgba(13,27,62,0.08); }
+        .event-item-info h4 { font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem; }
+        .event-item-info p { font-size: 0.85rem; color: var(--gray); }
+        .event-tag { display: inline-block; padding: 0.25rem 0.75rem; border-radius: var(--radius-full); font-size: 0.75rem; font-weight: 600; background: rgba(201,168,76,0.15); color: var(--accent-hover); margin-right: 0.5rem; }
+        .success-toast { position: fixed; bottom: 2rem; right: 2rem; background: #10b981; color: white; padding: 1rem 1.5rem; border-radius: var(--radius-md); font-weight: 500; box-shadow: 0 8px 24px rgba(0,0,0,0.15); display: none; z-index: 9999; }
+        .gallery-note { background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3); border-radius: var(--radius-sm); padding: 1rem 1.25rem; font-size: 0.9rem; color: var(--dark); }
+        .gallery-note strong { color: var(--accent-hover); }
+    </style>
+</head>
+<body style="background: var(--light-blue); min-height: 100vh; padding-top: 2rem;">
+    <div class="admin-container">
+        <div class="admin-header">
+            <div>
+                <h1 style="font-family: var(--font-serif); font-size: 2rem; margin-bottom: 0.25rem;">ABC Admin Portal</h1>
+                <p style="color: rgba(255,255,255,0.7); font-size: 0.9rem; margin: 0;">Manage upcoming events and site content</p>
+            </div>
+            <div style="display: flex; gap: 1rem; align-items: center;">
+                <a href="index.html" style="color: rgba(255,255,255,0.7); text-decoration: none; font-size: 0.9rem;"><i class="fas fa-external-link-alt" style="margin-right: 6px;"></i>View Site</a>
+                <button onclick="logout()" class="btn-admin" style="background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.2);"><i class="fas fa-sign-out-alt"></i> Logout</button>
+            </div>
+        </div>
+
+        <!-- Add Upcoming Event -->
+        <div class="admin-section">
+            <h2><i class="fas fa-calendar-plus"></i> Add Upcoming Event</h2>
+            <form id="event-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Event Title *</label>
+                        <input type="text" id="event-title" placeholder="e.g. ABC Networking Dinner" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Event Category</label>
+                        <select id="event-category">
+                            <option value="Networking">Networking</option>
+                            <option value="Cultural">Cultural</option>
+                            <option value="Education">Education</option>
+                            <option value="Community">Community</option>
+                            <option value="Gala">Gala</option>
+                            <option value="Panel">Panel Discussion</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Date *</label>
+                        <input type="date" id="event-date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Time</label>
+                        <input type="text" id="event-time" placeholder="e.g. 6:30 PM – 10:00 PM">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Venue</label>
+                        <input type="text" id="event-venue" placeholder="e.g. Home House, London">
+                    </div>
+                    <div class="form-group">
+                        <label>Ticket / RSVP Link</label>
+                        <input type="url" id="event-link" placeholder="https://...">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea id="event-description" placeholder="Brief description of the event..."></textarea>
+                </div>
+                <button type="submit" class="btn-admin btn-admin-primary"><i class="fas fa-plus"></i> Add Event</button>
+            </form>
+        </div>
+
+        <!-- Current Upcoming Events -->
+        <div class="admin-section">
+            <h2><i class="fas fa-list"></i> Upcoming Events <span id="event-count" style="font-size: 0.85rem; color: var(--gray); font-weight: 400;"></span></h2>
+            <ul class="event-list" id="event-list">
+                <li style="color: var(--gray); font-size: 0.95rem; padding: 1rem;">No upcoming events added yet.</li>
+            </ul>
+        </div>
+
+        <!-- Gallery Management -->
+        <div class="admin-section">
+            <h2><i class="fas fa-images"></i> Gallery Management</h2>
+            <div class="gallery-note">
+                <strong>To add new photos to the gallery:</strong> Upload image files directly to your Hostinger File Manager under the <code>Gallery photos/</code> folder, then update the <code>gallery.html</code> file to include the new image references. The gallery currently displays photos automatically from that folder.<br><br>
+                <strong>Tip:</strong> Name your files descriptively (e.g., <code>ABC_event_2026.jpg</code>) for easy identification.
+            </div>
+        </div>
+    </div>
+
+    <div class="success-toast" id="toast">
+        <i class="fas fa-check-circle" style="margin-right: 8px;"></i><span id="toast-msg">Event added successfully!</span>
+    </div>
+
+    <script>
+        // Auth check
+        if (sessionStorage.getItem('abc_admin') !== 'authenticated') {
+            window.location.href = 'login.html';
+        }
+
+        function logout() {
+            sessionStorage.removeItem('abc_admin');
+            window.location.href = 'login.html';
+        }
+
+        function showToast(msg, isError) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            toastMsg.textContent = msg;
+            toast.style.background = isError ? '#ef4444' : '#10b981';
+            toast.style.display = 'block';
+            setTimeout(() => toast.style.display = 'none', 3000);
+        }
+
+        function getEvents() {
+            return JSON.parse(localStorage.getItem('abc_events') || '[]');
+        }
+
+        function saveEvents(events) {
+            localStorage.setItem('abc_events', JSON.stringify(events));
+        }
+
+        function renderEvents() {
+            const events = getEvents();
+            const list = document.getElementById('event-list');
+            const count = document.getElementById('event-count');
+            count.textContent = `(${events.length})`;
+
+            if (events.length === 0) {
+                list.innerHTML = '<li style="color: var(--gray); font-size: 0.95rem; padding: 1rem;">No upcoming events added yet.</li>';
+                return;
+            }
+
+            list.innerHTML = events.map((ev, i) => `
+                <li class="event-item">
+                    <div class="event-item-info">
+                        <h4>${ev.title}</h4>
+                        <p>
+                            <span class="event-tag">${ev.category}</span>
+                            <i class="fas fa-calendar-alt" style="color: var(--accent); margin-right: 4px;"></i>${ev.date}
+                            ${ev.time ? `&nbsp;&nbsp;<i class="fas fa-clock" style="color: var(--accent); margin-right: 4px;"></i>${ev.time}` : ''}
+                            ${ev.venue ? `&nbsp;&nbsp;<i class="fas fa-map-marker-alt" style="color: var(--accent); margin-right: 4px;"></i>${ev.venue}` : ''}
+                        </p>
+                        ${ev.description ? `<p style="margin-top: 0.35rem;">${ev.description}</p>` : ''}
+                    </div>
+                    <button onclick="deleteEvent(${i})" class="btn-admin btn-admin-danger" style="flex-shrink:0; margin-left:1rem;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </li>
+            `).join('');
+        }
+
+        function deleteEvent(index) {
+            const events = getEvents();
+            events.splice(index, 1);
+            saveEvents(events);
+            renderEvents();
+            showToast('Event removed.');
+        }
+
+        document.getElementById('event-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const events = getEvents();
+            const dateVal = document.getElementById('event-date').value;
+            // Format date nicely
+            const dateObj = new Date(dateVal + 'T00:00:00');
+            const formatted = dateObj.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+
+            events.push({
+                title: document.getElementById('event-title').value,
+                category: document.getElementById('event-category').value,
+                date: formatted,
+                rawDate: dateVal,
+                time: document.getElementById('event-time').value,
+                venue: document.getElementById('event-venue').value,
+                link: document.getElementById('event-link').value,
+                description: document.getElementById('event-description').value,
+            });
+
+            // Sort by date
+            events.sort((a, b) => new Date(a.rawDate) - new Date(b.rawDate));
+            saveEvents(events);
+            renderEvents();
+            this.reset();
+            showToast('Event added successfully!');
+        });
+
+        // Initial render
+        renderEvents();
+    </script>
+</body>
+</html>

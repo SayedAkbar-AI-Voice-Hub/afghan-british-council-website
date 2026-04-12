@@ -31,9 +31,9 @@
                     <a href="#" class="nav-link">Activities & Services <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
                     <div class="dropdown-menu">
                         <a href="event-management.html" class="dropdown-item">Event Management</a>
-                        <a href="#" class="dropdown-item">Education & Skills</a>
-                        <a href="#" class="dropdown-item">Professional Networking</a>
-                        <a href="#" class="dropdown-item">Social & Cultural Events</a>
+                        <a href="education-skills.html" class="dropdown-item">Education & Skills</a>
+                        <a href="professional-networking.html" class="dropdown-item">Professional Networking</a>
+                        <a href="social-cultural-events.html" class="dropdown-item">Social & Cultural Events</a>
                     </div>
                 </li>
                 <li class="dropdown">
@@ -77,15 +77,33 @@
                 <form id="login-form">
                     <div class="form-group">
                         <label class="form-label">Email</label>
-                        <input type="email" class="form-control" required>
+                        <input type="email" id="login-email" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Password</label>
-                        <input type="password" class="form-control" required>
+                        <input type="password" id="login-password" class="form-control" required>
+                    </div>
+                    <div id="login-error" style="color: #ef4444; font-size: 0.9rem; margin-bottom: 1rem; display: none;">
+                        <i class="fas fa-exclamation-circle" style="margin-right: 6px;"></i>Incorrect email or password.
                     </div>
                     <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
                     <p style="text-align: center; margin-top: 1rem; color: var(--gray); font-size: 0.9rem;">Authorised Access Only.</p>
                 </form>
+                <script>
+                    const ADMIN_EMAIL = 'admin@afghanbritishcouncil.co.uk';
+                    const ADMIN_PASSWORD = 'ABC@Admin2026';
+                    document.getElementById('login-form').addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        const email = document.getElementById('login-email').value.trim();
+                        const password = document.getElementById('login-password').value;
+                        if (email === ADMIN_EMAIL && password === ADMIN_PASSWORD) {
+                            sessionStorage.setItem('abc_admin', 'authenticated');
+                            window.location.href = 'admin.html';
+                        } else {
+                            document.getElementById('login-error').style.display = 'block';
+                        }
+                    });
+                </script>
             </div>
         </div>
     </section>

@@ -31,9 +31,9 @@
                     <a href="#" class="nav-link">Activities & Services <i class="fas fa-chevron-down" style="font-size: 0.8em; margin-left: 5px;"></i></a>
                     <div class="dropdown-menu">
                         <a href="event-management.html" class="dropdown-item">Event Management</a>
-                        <a href="#" class="dropdown-item">Education & Skills</a>
-                        <a href="#" class="dropdown-item">Professional Networking</a>
-                        <a href="#" class="dropdown-item">Social & Cultural Events</a>
+                        <a href="education-skills.html" class="dropdown-item">Education & Skills</a>
+                        <a href="professional-networking.html" class="dropdown-item">Professional Networking</a>
+                        <a href="social-cultural-events.html" class="dropdown-item">Social & Cultural Events</a>
                     </div>
                 </li>
                 <li class="dropdown">
@@ -74,32 +74,99 @@
         <div class="container">
             <h2 class="text-center gsap-fade-up" style="font-size: 2.5rem; margin-bottom: 3rem;">Strategic Partners</h2>
             <div class="grid-3 text-center" style="gap: 2rem;">
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">B&P Hub</h3><p class="text-accent" style="font-size: 0.85rem;">Strategic Joint Event Partner</p></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">Syva Health</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">Anari</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">B&P Consultancy</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">Upstairs at Langan’s</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">NHS</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">Watandar.snap</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">Forbes 30 Under 30</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">TEDx Community</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">Afghan Development Academy (ADA)</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">The Heart of Europe</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">FML</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">Kapabay</h3></div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <img src="partner-logos/bp-hub.jpeg" alt="B&P Hub" style="max-height: 70px; max-width: 140px; object-fit: contain;">
+                    <h3 style="font-size: 1.2rem;">B&amp;P Hub</h3>
+                    <p class="text-accent" style="font-size: 0.8rem; margin: 0;">Strategic Joint Event Partner</p>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <img src="partner-logos/syva-health.png" alt="Syva Health" style="max-height: 70px; max-width: 140px; object-fit: contain;">
+                    <h3 style="font-size: 1.2rem;">Syva Health</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-hover)); display: flex; align-items: center; justify-content: center; color: var(--dark); font-weight: 700; font-size: 1.1rem;">AN</div>
+                    <h3 style="font-size: 1.2rem;">Anari</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <img src="partner-logos/bp-consultancy.png" alt="B&P Consultancy" style="max-height: 70px; max-width: 140px; object-fit: contain;">
+                    <h3 style="font-size: 1.2rem;">B&amp;P Consultancy</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <img src="partner-logos/leganis.png" alt="Upstairs at Langan’s" style="max-height: 70px; max-width: 140px; object-fit: contain;">
+                    <h3 style="font-size: 1.2rem;">Upstairs at Langan’s</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <img src="partner-logos/nhs.png" alt="NHS" style="max-height: 70px; max-width: 140px; object-fit: contain;">
+                    <h3 style="font-size: 1.2rem;">NHS</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--dark), var(--dark-light)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.9rem;">WS</div>
+                    <h3 style="font-size: 1.2rem;">Watandar.snap</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <img src="partner-logos/forbes.png" alt="Forbes 30 Under 30" style="max-height: 70px; max-width: 140px; object-fit: contain;">
+                    <h3 style="font-size: 1.2rem;">Forbes 30 Under 30</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <img src="partner-logos/tedx.jpeg" alt="TEDx Community" style="max-height: 70px; max-width: 140px; object-fit: contain;">
+                    <h3 style="font-size: 1.2rem;">TEDx Community</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-hover)); display: flex; align-items: center; justify-content: center; color: var(--dark); font-weight: 700; font-size: 0.85rem;">ADA</div>
+                    <h3 style="font-size: 1.2rem;">Afghan Development Academy</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--dark), var(--dark-light)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.85rem;">HE</div>
+                    <h3 style="font-size: 1.2rem;">The Heart of Europe</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-hover)); display: flex; align-items: center; justify-content: center; color: var(--dark); font-weight: 700; font-size: 1.1rem;">FML</div>
+                    <h3 style="font-size: 1.2rem;">FML</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <img src="partner-logos/kapabay.png" alt="Kapabay" style="max-height: 70px; max-width: 140px; object-fit: contain;">
+                    <h3 style="font-size: 1.2rem;">Kapabay</h3>
+                </div>
             </div>
-            
-            <h2 class="text-center gsap-fade-up" style="font-size: 2.5rem; margin: 4rem 0 3rem;">Notable Venue Partners</h2>
+
+            <h2 class="text-center gsap-fade-up" style="font-size: 2.5rem; margin: 5rem 0 3rem;">Notable Venue Partners</h2>
             <div class="grid-3 text-center" style="gap: 2rem;">
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">Langan’s Mayfair</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">Home House</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">Home Grown</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">Greenford Business Lounge</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">Dirty Martini</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">145 Knightsbridge</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">Gaucho Group</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">Grand Connaught Rooms</h3></div>
-                <div class="glass-card gsap-stagger-item"><h3 style="font-size: 1.3rem;">Old Sessions House</h3></div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <img src="partner-logos/leganis.png" alt="Langan’s Mayfair" style="max-height: 70px; max-width: 140px; object-fit: contain;">
+                    <h3 style="font-size: 1.2rem;">Langan’s Mayfair</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--dark), var(--dark-light)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.9rem;">HH</div>
+                    <h3 style="font-size: 1.2rem;">Home House</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-hover)); display: flex; align-items: center; justify-content: center; color: var(--dark); font-weight: 700; font-size: 0.9rem;">HG</div>
+                    <h3 style="font-size: 1.2rem;">Home Grown</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--dark), var(--dark-light)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.7rem; text-align: center; padding: 0.5rem;">GBL</div>
+                    <h3 style="font-size: 1.2rem;">Greenford Business Lounge</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <img src="partner-logos/dirty-martini.png" alt="Dirty Martini" style="max-height: 70px; max-width: 140px; object-fit: contain;">
+                    <h3 style="font-size: 1.2rem;">Dirty Martini</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-hover)); display: flex; align-items: center; justify-content: center; color: var(--dark); font-weight: 700; font-size: 0.85rem;">145K</div>
+                    <h3 style="font-size: 1.2rem;">145 Knightsbridge</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <img src="partner-logos/gaucho.png" alt="Gaucho Group" style="max-height: 70px; max-width: 140px; object-fit: contain;">
+                    <h3 style="font-size: 1.2rem;">Gaucho Group</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--dark), var(--dark-light)); display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 0.75rem; text-align: center; padding: 0.5rem;">GCR</div>
+                    <h3 style="font-size: 1.2rem;">Grand Connaught Rooms</h3>
+                </div>
+                <div class="glass-card gsap-stagger-item" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 1rem;">
+                    <div style="width: 70px; height: 70px; border-radius: 50%; background: linear-gradient(135deg, var(--accent), var(--accent-hover)); display: flex; align-items: center; justify-content: center; color: var(--dark); font-weight: 700; font-size: 0.85rem;">OSH</div>
+                    <h3 style="font-size: 1.2rem;">Old Sessions House</h3>
+                </div>
             </div>
         </div>
     </section>
