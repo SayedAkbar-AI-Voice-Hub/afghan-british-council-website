@@ -37,12 +37,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mobile dropdown toggle
     const dropdowns = document.querySelectorAll('.dropdown');
     dropdowns.forEach(dropdown => {
-        dropdown.addEventListener('click', (e) => {
-            if (window.innerWidth <= 1100) {
-                e.stopPropagation();
-                dropdown.classList.toggle('active');
-            }
-        });
+        const parentLink = dropdown.querySelector('.nav-link');
+        if (parentLink) {
+            parentLink.addEventListener('click', (e) => {
+                if (window.innerWidth <= 1100) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropdowns.forEach(d => {
+                        if (d !== dropdown) d.classList.remove('active');
+                    });
+                    dropdown.classList.toggle('active');
+                }
+            });
+        }
     });
 
     // Close mobile nav when a dropdown item link is clicked
@@ -235,28 +242,93 @@ document.addEventListener('DOMContentLoaded', () => {
     // 7. Connect Form Submission Logic
     const contactForm = document.getElementById('contact-form-element');
     const successMsg = document.getElementById('form-success-message');
-    
+
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+    }
+
     if (contactForm && successMsg) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault(); // Stop page reload
-            
-            // Hide form and show success message
-            contactForm.style.display = 'none';
-            successMsg.style.display = 'block';
-            
-            // Animate it nicely using GSAP
-            gsap.fromTo(successMsg, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
+        const emailInput = document.getElementById('email');
+        const emailError = document.getElementById('email-error');
+        const formError = document.getElementById('form-error');
+        const submitBtn = document.getElementById('submit-btn');
+
+        if (emailInput && emailError) {
+            emailInput.addEventListener('input', () => {
+                if (emailInput.value && !isValidEmail(emailInput.value)) {
+                    emailError.style.display = 'block';
+                    emailInput.style.borderColor = '#e74c3c';
+                } else {
+                    emailError.style.display = 'none';
+                    emailInput.style.borderColor = '';
+                }
+            });
+        }
+
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const name = document.getElementById('name').value.trim();
+            const email = emailInput.value.trim();
+            const phone = document.getElementById('phone').value.trim();
+
+            if (!isValidEmail(email)) {
+                emailError.style.display = 'block';
+                emailInput.style.borderColor = '#e74c3c';
+                emailInput.focus();
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Submitting...';
+            if (formError) formError.style.display = 'none';
+
+            try {
+                const response = await fetch('https://formspree.io/f/mrerodbd', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({ name, email, phone })
+                });
+
+                if (!response.ok) throw new Error('Submission failed');
+
+                contactForm.style.display = 'none';
+                successMsg.style.display = 'block';
+                gsap.fromTo(successMsg, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5 });
+            } catch (err) {
+                if (formError) {
+                    formError.textContent = 'Something went wrong. Please try again.';
+                    formError.style.display = 'block';
+                }
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Submit Details';
+            }
         });
     }
 
-    // 8. Hero Carousel Auto-scroll
+    // 8. Hero Carousel Auto-scroll with manual arrows
     const slides = document.querySelectorAll('.carousel-slide');
     if (slides.length > 0) {
         let currentSlide = 0;
-        setInterval(() => {
+        let autoTimer;
+
+        function goToSlide(index) {
             slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
+            currentSlide = (index + slides.length) % slides.length;
             slides[currentSlide].classList.add('active');
-        }, 4000); // Change image every 4 seconds
+        }
+
+        function startAuto() {
+            clearInterval(autoTimer);
+            autoTimer = setInterval(() => goToSlide(currentSlide + 1), 4000);
+        }
+
+        const leftArrow = document.querySelector('.carousel-arrow-left');
+        const rightArrow = document.querySelector('.carousel-arrow-right');
+
+        if (leftArrow) leftArrow.addEventListener('click', () => { goToSlide(currentSlide - 1); startAuto(); });
+        if (rightArrow) rightArrow.addEventListener('click', () => { goToSlide(currentSlide + 1); startAuto(); });
+
+        startAuto();
     }
 });
